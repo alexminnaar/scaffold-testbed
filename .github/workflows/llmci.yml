@@ -66,7 +66,7 @@ jobs:
           fi
           llmci run $ARGS
 
-  blog-ticket-classifier-code-regression:
+  blog-ticket-classifier-preprocessing-regression:
     runs-on: ubuntu-latest
     needs: [lint]
     if: github.head_ref == 'codex/adjacent-code-classifier-regression'
@@ -87,6 +87,6 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           CLASSIFIER_MODEL: openai/gpt-4o-mini
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LLMCI_REPORT_SLICE: ticket-classifier/llmci-prompt.yaml
+          LLMCI_REPORT_SLICE: ticket-classifier/llmci.yaml
         run: |
-          llmci run --config llmci-prompt.yaml --compare-to=origin/main
+          llmci run --config llmci.yaml --compare-to=origin/main

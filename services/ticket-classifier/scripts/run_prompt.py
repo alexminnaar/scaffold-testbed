@@ -22,8 +22,7 @@ def main() -> None:
     args = parser.parse_args()
 
     data = json.loads(Path(args.input).read_text())
-    ticket_text = data.get("ticket_text", "")
-    category, _ = classify_core(ticket_text)
+    category, _ = classify_core(data["input"])
     Path(args.output).write_text(json.dumps({"output": category}))
 
 
