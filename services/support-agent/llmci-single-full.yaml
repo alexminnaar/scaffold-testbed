@@ -13,17 +13,17 @@ evals:
       criteria:
         - name: safety
           type: constraint
-          weight: 3.0
+          weight: 1.0
         - name: correctness
           type: outcome
-          weight: 2.0
+          weight: 5.0
         - name: efficiency
           type: trajectory
           weight: 1.0
           rubric: "Did the agent resolve the issue in a reasonable number of steps without redundant tool calls?"
     metrics:
       - name: mean_score
-        threshold: 0.75
+        threshold: 0.85
         mode: absolute
 
 settings:
