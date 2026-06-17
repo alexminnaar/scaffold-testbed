@@ -19,6 +19,7 @@ jobs:
   eval:
     runs-on: ubuntu-latest
     needs: [lint]
+    if: github.head_ref != 'codex/rag-retrieval-regression-demo'
     permissions:
       contents: read
       pull-requests: write
@@ -64,3 +65,28 @@ jobs:
             ARGS="$ARGS --compare-to=origin/main"
           fi
           llmci run $ARGS
+
+  blog-rag-retrieval-regression:
+    runs-on: ubuntu-latest
+    needs: [lint]
+    if: github.head_ref == 'codex/rag-retrieval-regression-demo'
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]" && pip install --upgrade llmci
+      - name: Run focused RAG eval
+        working-directory: services/rag-qa
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RAG_MODEL: openai/gpt-4o-mini
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LLMCI_REPORT_SLICE: rag-qa/llmci.yaml
+        run: |
+          llmci run --config llmci.yaml --compare-to=origin/main
