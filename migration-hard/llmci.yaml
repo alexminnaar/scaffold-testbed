@@ -1,0 +1,21 @@
+version: 1
+
+target:
+  provider: openai
+  model: gpt-4o-mini
+  prompt_file: ./prompts/classify.txt
+
+evals:
+  - name: ticket-classification
+    level: prompt
+    dataset: ../migration/evals/tickets.jsonl
+    judge: exact_match
+    metrics:
+      - name: accuracy
+        threshold: 0.85
+        mode: absolute
+
+settings:
+  parallelism: 3
+  timeout_per_call: 30
+  retries: 1

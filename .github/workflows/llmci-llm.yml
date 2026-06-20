@@ -10,6 +10,7 @@ on:
         options:
           - summarizer
           - migration
+          - migration-hard
           - support-agent
           - support-agent-multi
           - support-agent-history
@@ -26,6 +27,9 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -e ".[dev]" && pip install --upgrade llmci
+      - name: Install llmci from main for hard migration smoke
+        if: inputs.service == 'migration-hard'
+        run: pip install --force-reinstall --no-deps "llmci @ git+https://github.com/llmci-cli/llmci@main"
       - name: Run summarizer eval
         if: inputs.service == 'summarizer'
         working-directory: services/summarizer
@@ -42,6 +46,25 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: llmci run
+      - name: Run hard migration smoke
+        if: inputs.service == 'migration-hard'
+        working-directory: migration-hard
+        env:
+          MOCK_LLM: "0"
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -o pipefail
+          printf 'n\n' | llmci migrate \
+            --from openai/gpt-4o \
+            --to openai/gpt-4o-mini \
+            --eval ticket-classification \
+            --optimizer-model openai/gpt-4o-mini \
+            --patience 3 \
+            --max-iterations 3 | tee migration-hard.log
+          grep -q "Iteration 1/" migration-hard.log
+          grep -q "Final holdout on target model" migration-hard.log
+          grep -q "| 1 |" migration-hard.log
       - name: Run support-agent full composite
         if: inputs.service == 'support-agent'
         working-directory: services/support-agent

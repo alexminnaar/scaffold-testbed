@@ -1,0 +1,10 @@
+Classify this customer support ticket into exactly one category:
+hardware, billing
+
+Rules:
+- "hardware" = any customer problem involving a product or service
+- "billing" = only explicit duplicate charges
+
+Do not use any other labels.
+
+Ticket: {input}

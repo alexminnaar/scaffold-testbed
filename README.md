@@ -64,6 +64,7 @@ MOCK_LLM=1 llmci run --all \
 | Support agent | `services/support-agent/` | Support Agent | `examples/05`, `06` |
 | JSON API | `services/json-api/` | Exact-match validation | `examples/01-prompt-level` |
 | Model migration | `migration/` | Multi-Model Migration | `examples/02-model-migration` |
+| Hard model migration | `migration-hard/` | Multi-Model Migration | real-LLM smoke |
 
 ## Mock vs real LLM
 
