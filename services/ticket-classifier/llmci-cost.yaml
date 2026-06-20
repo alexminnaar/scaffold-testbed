@@ -1,0 +1,24 @@
+version: 1
+
+target:
+  command: "python3 scripts/eval_cost.py --input {input_file} --output {output_file}"
+
+evals:
+  - name: cost-classification
+    level: pipeline
+    dataset: ./evals/tickets.jsonl
+    judge: exact_match
+    metrics:
+      # Quality must hold regardless of which model we run.
+      - name: accuracy
+        threshold: 0.75
+        mode: absolute
+      # Budget gate: per-call cost may not more than triple vs the baseline model.
+      - name: cost_mean
+        threshold: 2.0
+        mode: max_regression
+
+settings:
+  parallelism: 5
+  timeout_per_call: 20
+  retries: 1

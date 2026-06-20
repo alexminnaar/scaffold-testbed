@@ -12,7 +12,15 @@ MOCK_LLM=1 llmci run
 
 # Prompt-level (classification only)
 MOCK_LLM=1 llmci run --config llmci-prompt.yaml
+
+# Cost gate (model swaps): quality + budget on cost_mean
+MOCK_LLM=1 llmci run --config llmci-cost.yaml
 ```
+
+The model is pinned in `model.txt`, so swapping models is a one-line diff. The
+cost gate (`llmci-cost.yaml`) reports cost in USD per 1,000 classifications using
+published per-token list prices, and blocks a swap whose `cost_mean` rises more
+than the budget vs. the baseline model — even if quality is unaffected.
 
 ## Start HTTP server
 
