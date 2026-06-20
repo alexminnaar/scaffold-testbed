@@ -90,4 +90,4 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LLMCI_REPORT_SLICE: ticket-classifier/llmci-cost.yaml
-        run: llmci run --config llmci-cost.yaml --compare-to=origin/main
+        run: llmci run --config llmci-cost.yaml
