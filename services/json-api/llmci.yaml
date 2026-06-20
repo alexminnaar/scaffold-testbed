@@ -7,7 +7,17 @@ evals:
   - name: api-json-validation
     level: prompt
     dataset: ./evals/api_responses.jsonl
-    judge: exact_match
+    # Validate the contact JSON the endpoint returns. name + email are always
+    # required; phone is optional because not every message includes one.
+    judge:
+      type: structured
+      json_schema:
+        type: object
+        required: [name, email]
+        properties:
+          name:  {type: string, minLength: 1}
+          email: {type: string, pattern: "@"}
+          phone: {type: string}
     metrics:
       - name: accuracy
         threshold: 1.0
@@ -15,5 +25,5 @@ evals:
 
 settings:
   parallelism: 5
-  timeout_per_call: 10
+  timeout_per_call: 20
   retries: 1

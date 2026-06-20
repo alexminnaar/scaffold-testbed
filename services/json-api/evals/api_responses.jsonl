@@ -1,5 +1,5 @@
-{"input": "Get user profile for user_id=123", "expected": "{\"user_id\": 123, \"name\": \"Alice\", \"email\": \"alice@example.com\"}"}
-{"input": "Get user profile for user_id=456", "expected": "{\"user_id\": 456, \"name\": \"Bob\", \"email\": \"bob@example.com\"}"}
-{"input": "List orders for customer_id=123", "expected": "{\"customer_id\": 123, \"orders\": [{\"id\": 1, \"total\": 29.99}]}"}
-{"input": "Get product details for sku=ABC-100", "expected": "{\"sku\": \"ABC-100\", \"name\": \"Widget\", \"price\": 9.99, \"in_stock\": true}"}
-{"input": "Search users by name=Charlie", "expected": "{\"results\": [{\"user_id\": 789, \"name\": \"Charlie\"}], \"count\": 1}"}
+{"input": "New contact: Alice Adams, alice@example.com"}
+{"input": "New contact: Bob Brown, bob@example.com, 555-0101"}
+{"input": "New contact: Carol Chen, carol@example.com"}
+{"input": "New contact: David Diaz, david@example.com, (555) 010-2020"}
+{"input": "New contact: Erin Estrada, erin@example.com"}
