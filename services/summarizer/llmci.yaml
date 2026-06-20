@@ -17,6 +17,8 @@ evals:
           prompt: "Does the summary cover the main points of the article? Key findings, numbers, and conclusions should be present."
         - id: conciseness
           prompt: "Is the summary free of filler, redundancy, and unnecessary detail? It should be tight and to the point."
+        - id: executive_voice
+          prompt: "Is the summary rewritten in fresh executive language instead of copying source sentences? Penalize summaries that reuse long source phrases, even when the copied facts are accurate."
     metrics:
       - name: mean_score
         threshold: 0.70
@@ -40,6 +42,8 @@ evals:
           prompt: "Does the summary cover the main points of the article? Key findings, numbers, and conclusions should be present."
         - id: conciseness
           prompt: "Is the summary free of filler, redundancy, and unnecessary detail? It should be tight and to the point."
+        - id: executive_voice
+          prompt: "Is the summary rewritten in fresh executive language instead of copying source sentences? Penalize summaries that reuse long source phrases, even when the copied facts are accurate."
     metrics:
       - name: mean_score
         threshold: 0.65
