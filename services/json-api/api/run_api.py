@@ -49,14 +49,22 @@ def _mock_extract(text: str) -> dict:
 
 
 def _extract_json(raw: str) -> str:
-    """Best-effort: strip code fences/prose and return the JSON object substring."""
+    """Strip code fences/prose, then re-serialize to compact single-line JSON.
+
+    Models often return pretty-printed JSON; normalizing keeps each record on one
+    line so the eval report renders cleanly. Unparseable output is passed through
+    so the structured judge can report it as invalid JSON.
+    """
     cleaned = raw.strip()
     if cleaned.startswith("```"):
         cleaned = re.sub(r"^```[a-zA-Z]*\n?|\n?```$", "", cleaned).strip()
     start, end = cleaned.find("{"), cleaned.rfind("}")
     if start != -1 and end != -1 and end > start:
-        return cleaned[start : end + 1]
-    return cleaned
+        cleaned = cleaned[start : end + 1]
+    try:
+        return json.dumps(json.loads(cleaned))
+    except json.JSONDecodeError:
+        return cleaned
 
 
 def extract_contact(text: str) -> str:
