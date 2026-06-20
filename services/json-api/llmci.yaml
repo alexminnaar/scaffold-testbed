@@ -7,13 +7,12 @@ evals:
   - name: api-json-validation
     level: prompt
     dataset: ./evals/api_responses.jsonl
-    # Validate the contact JSON the endpoint returns. name + email are always
-    # required; phone is optional because not every message includes one.
+    # Harden the contact contract: every record must now include a phone number.
     judge:
       type: structured
       json_schema:
         type: object
-        required: [name, email]
+        required: [name, email, phone]
         properties:
           name:  {type: string, minLength: 1}
           email: {type: string, pattern: "@"}
