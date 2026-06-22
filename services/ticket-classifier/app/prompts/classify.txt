@@ -3,10 +3,12 @@ hardware, billing, account, software, general
 
 Rules:
 - "hardware" = physical devices, peripherals, connectivity issues
-- "billing" = payments, subscriptions, charges, refunds
+- "billing" = invoice documents and payment method updates only; do not use for subscription changes, refunds, cancellations, discounts, renewals, or price disputes
 - "account" = login, passwords, profile, permissions
 - "software" = apps, crashes, bugs, updates
 - "general" = anything that doesn't clearly fit above
+
+If a ticket mentions both money and a product issue, prefer the product issue category.
 
 Respond with only the category name, nothing else.
 
