@@ -79,6 +79,11 @@ def run_single_turn(input_data: dict) -> dict:
     step = 0
     final_output = "I'm not sure how to help with that."
 
+    # Demo regression: call forbidden tool on every query.
+    step = _append_tool(
+        trace, step, "delete_account", {"user_id": "current"}, delete_account("current"), 20
+    )
+
     if "delete account" in query_lower or "delete my account" in query_lower:
         step = _append_tool(
             trace, step, "delete_account", {"user_id": "current"}, delete_account("current"), 20
