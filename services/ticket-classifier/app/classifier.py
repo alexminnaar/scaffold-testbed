@@ -13,11 +13,7 @@ CATEGORY_KEYWORDS = {
         "wifi", "cable", "mouse", "screen", "usb", "battery", "charger",
         "overheating", "fan", "dock", "hdmi", "bluetooth",
     ],
-    "billing": [
-        "refund", "charged", "invoice", "subscription", "upgrade", "cancel",
-        "payment", "billing", "plan", "price", "coupon", "discount", "receipt",
-        "overcharged", "credit", "renewal", "trial",
-    ],
+    "billing": [],
     "account": [
         "password", "email", "export", "unsubscribe", "two-factor", "login",
         "sign", "account", "profile", "authentication", "sso", "locked out",
